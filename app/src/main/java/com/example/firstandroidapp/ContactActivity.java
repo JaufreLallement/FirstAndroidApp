@@ -1,6 +1,7 @@
 package com.example.firstandroidapp;
 
 import android.database.Cursor;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -178,7 +179,6 @@ public class ContactActivity extends AppCompatActivity {
         String email = form.get("email");
         String birthdate = form.get("birthdate");
 
-        String prevMail = this.contact.get("email"); // Email of the contact in database
         String finalMessage;
 
         boolean uniqueMail = dbHelper.checkUniqueMail(email).getCount() == 0;
@@ -195,19 +195,20 @@ public class ContactActivity extends AppCompatActivity {
             boolean addedContact = dbHelper.addContact(form); // Save data to the database
 
             if (!addedContact) return "Error: contact could not be saved in database"; // Check if there was a problem to save the contact
-            finalMessage = "Success: contact " + form.get("email") + " was successfully saved in database!"; // Set the final message
+            finalMessage = "Success: contact " + email + " was successfully saved in database!"; // Set the final message
         } else {
+            String prevMail = this.contact.get("email"); // Email of the contact in database
             boolean changedMail = prevMail != email;
 
             // Check if the email address was changed
             if (changedMail) {
                 if (!uniqueMail) return nonUniqueMailError; // Check if the changed address is already used
             }
-            boolean updatedContact = dbHelper.updateContact(this.contact.get("email"), form);
+            boolean updatedContact = dbHelper.updateContact(prevMail, form);
 
             if (!updatedContact) return "Error: contact could not be updated"; // Check if there was a problem to update the contact
 
-            finalMessage = "Success: contact " + this.contact.get("email") + " was successfully updated!"; // Set the final message
+            finalMessage = "Success: contact " + prevMail + " was successfully updated!"; // Set the final message
         }
 
         return finalMessage;
@@ -303,21 +304,6 @@ public class ContactActivity extends AppCompatActivity {
     }
 
     /**
-     * Configuration of the cancel button to end the activity
-     * @return void
-     */
-    private void configureCancelButton() {
-        Button cancelButton = findViewById(R.id.contact_cancel);
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setResult(RESULT_CANCELED);
-                finish(); // Finish the activity
-            }
-        });
-    }
-
-    /**
      * Configuration of the save button to start db saving processes etc
      */
     private void configureSaveButton() {
@@ -342,11 +328,11 @@ public class ContactActivity extends AppCompatActivity {
      * Configuration of the delete button to delete a contact
      */
     private void configureDeleteButton() {
-        Button deleteContact = findViewById(R.id.contact_delete);
+        FloatingActionButton deleteContact = findViewById(R.id.contact_delete);
 
         // If the selected contact is set, show the button
-        if (this.contact == null) deleteContact.setVisibility(View.INVISIBLE);
-        else deleteContact.setVisibility(View.VISIBLE);
+        if (this.contact == null) deleteContact.hide();
+        else deleteContact.show();
 
         deleteContact.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -367,6 +353,24 @@ public class ContactActivity extends AppCompatActivity {
     }
 
     /**
+     * Configuration of the cancel button to end the activity
+     */
+    @Override
+    public boolean onSupportNavigateUp() {
+        setResult(RESULT_CANCELED);
+        finish(); // Finish the activity
+        return true;
+    }
+
+    /**
+     * Configure the toolbar buttons
+     */
+    private void configureToolbar() {
+        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        this.getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_clear);
+    }
+
+    /**
      *  On create method
      * @param savedInstanceState
      */
@@ -374,6 +378,8 @@ public class ContactActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_save_contact);
+
+        this.configureToolbar(); // Configuration of the toolbar
 
         // Initialization of the attributes
         this.name = findViewById(R.id.contact_name); // Name field
@@ -403,7 +409,6 @@ public class ContactActivity extends AppCompatActivity {
         }
 
         this.configureSaveButton(); // Configuration of the save button
-        this.configureCancelButton(); // Configuration of the cancel button to return to main activity
         this.configureDeleteButton(); // Configuration of the delete button
     }
 }
