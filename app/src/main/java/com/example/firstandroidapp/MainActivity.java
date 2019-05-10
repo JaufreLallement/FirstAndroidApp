@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -42,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
      * Fills the user list with the data from the database
      */
     private void populateContactList() {
-        Log.d(TAG, "Populating user list!");
         Cursor data = dbHelper.getContacts(); // Retreiving the contacts from the db
 
 
@@ -148,7 +146,6 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
-                Log.d(TAG, "Success, ContactActivity");
                 this.populateContactList(); // Refresh the user list
             }
         }
