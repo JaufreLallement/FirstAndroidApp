@@ -4,17 +4,12 @@ import android.database.Cursor;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
-
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -71,35 +66,6 @@ public class ContactActivity extends AppCompatActivity {
      * Action to execute
      */
     private Map<String, String> contact = null;
-
-    /**
-     * Encrypting a given text with SHA 256 algorithm
-     * @param text : text to encrypt
-     * @return : encrypted text
-     */
-    public static String sha256(String text) {
-        MessageDigest digest;
-        StringBuffer hexString = new StringBuffer();
-
-        try {
-            digest = MessageDigest.getInstance("SHA-256"); // SHA 256
-            byte[] encodedHash = new byte[0]; // Array of bytes
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
-                encodedHash = digest.digest(text.getBytes(StandardCharsets.UTF_8));
-            }
-
-            // For each byte of the array : append to StringBuffer
-            for (byte element : encodedHash) {
-                String hex = Integer.toHexString(0xff & element);
-                if (hex.length() == 1) hexString.append('0');
-                else hexString.append(hex);
-            }
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-
-        return hexString.toString();
-    }
 
     /**
      * Checks if the given text matches the given regex
@@ -198,7 +164,7 @@ public class ContactActivity extends AppCompatActivity {
             finalMessage = "Success: contact " + email + " was successfully saved in database!"; // Set the final message
         } else {
             String prevMail = this.contact.get("email"); // Email of the contact in database
-            boolean changedMail = prevMail != email;
+            boolean changedMail = !prevMail.equals(email);
 
             // Check if the email address was changed
             if (changedMail) {
@@ -399,7 +365,6 @@ public class ContactActivity extends AppCompatActivity {
                 String selectedContact = extras.getString("selectedContact");
 
                 // Initializing the user
-                Log.d(TAG, "selected contact email = " + selectedContact);
                 Cursor contactCursor = dbHelper.getContactByEmail(selectedContact);
                 this.contact = this.contactCursorToMap(contactCursor);
 
