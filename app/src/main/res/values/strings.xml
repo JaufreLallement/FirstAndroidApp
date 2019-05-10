@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">FirstAndroidApp</string>
+    <string name="action_settings">Settings</string>
+    <string name="contact_title_s">Save Contact</string>
+    <string name="contact_name_s">Name</string>
+    <string name="contact_firstname_s">Firstname</string>
+    <string name="contact_birthdate_s">Date of birth</string>
+    <string name="contact_phone_s">Phone number</string>
+    <string name="contact_email_s">Email address</string>
+    <string name="contact_passwd_s">Password</string>
+    <string name="contact_conf_passwd_s">Confirm password</string>
+    <string name="contact_gender_f_s">F</string>
+    <string name="contact_gender_m_s">M</string>
+    <string name="contact_gender_o_s">Other</string>
+    <string name="save_s">Save</string>
+    <string name="cancel_s">Cancel</string>
+</resources>

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ContactActivity">
+
+    <ScrollView
+        android:id="@+id/scrollView3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/contact_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/contact_title_s"
+                android:textSize="30sp"
+                app:fontFamily="sans-serif"
+                tools:layout_editor_absoluteX="117dp"
+                tools:layout_editor_absoluteY="8dp" />
+
+            <EditText
+                android:id="@+id/contact_name"
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/contact_name_s"
+                android:inputType="textPersonName"
+                tools:layout_editor_absoluteX="46dp"
+                tools:layout_editor_absoluteY="57dp" />
+
+            <EditText
+                android:id="@+id/contact_firstname"
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/contact_firstname_s"
+                android:inputType="textPersonName"
+                tools:layout_editor_absoluteX="46dp"
+                tools:layout_editor_absoluteY="110dp" />
+
+            <EditText
+                android:id="@+id/contact_birthdate"
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/contact_birthdate_s"
+                android:inputType="date"
+                tools:layout_editor_absoluteX="46dp"
+                tools:layout_editor_absoluteY="163dp" />
+
+            <EditText
+                android:id="@+id/contact_phone"
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/contact_phone_s"
+                android:inputType="phone"
+                tools:layout_editor_absoluteX="46dp"
+                tools:layout_editor_absoluteY="216dp" />
+
+            <EditText
+                android:id="@+id/contact_email"
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/contact_email_s"
+                android:inputType="textEmailAddress"
+                tools:layout_editor_absoluteX="46dp"
+                tools:layout_editor_absoluteY="269dp" />
+
+            <RadioGroup
+                android:id="@+id/contact_gender"
+                android:layout_width="320dp"
+                android:layout_height="70dp"
+                android:layout_marginStart="44dp"
+                android:layout_marginLeft="44dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="44dp"
+                android:layout_marginRight="44dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/contact_conf_passwd">
+
+                <RadioButton
+                    android:id="@+id/contact_gender_f"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:text="@string/contact_gender_f_s" />
+
+                <RadioButton
+                    android:id="@+id/contact_gender_m"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/contact_gender_m_s" />
+
+                <RadioButton
+                    android:id="@+id/contact_gender_o"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/contact_gender_o_s" />
+            </RadioGroup>
+
+            <Button
+                android:id="@+id/contact_save"
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:text="@string/save_s"
+                tools:layout_editor_absoluteX="46dp"
+                tools:layout_editor_absoluteY="506dp" />
+
+            <Button
+                android:id="@+id/contact_cancel"
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:text="@string/cancel_s"
+                tools:layout_editor_absoluteX="46dp"
+                tools:layout_editor_absoluteY="562dp" />
+
+            <Button
+                android:id="@+id/contact_delete"
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:text="Delete" />
+        </LinearLayout>
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>
