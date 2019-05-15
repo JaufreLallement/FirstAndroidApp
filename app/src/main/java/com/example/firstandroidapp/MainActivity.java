@@ -18,7 +18,9 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 /**
- *
+ * Main activity which displays the contact list and provides interface elements to change activity
+ * @author Lallement Jaufré
+ * @version 1.0
  */
 public class MainActivity extends AppCompatActivity {
 

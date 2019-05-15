@@ -150,29 +150,29 @@ public class ContactActivity extends AppCompatActivity {
         boolean uniqueMail = dbHelper.checkUniqueMail(email).getCount() == 0;
         String nonUniqueMailError = "Error: this email address is already used!";
 
-        if (!this.checkName(name)) return "Error: invalid last name!"; // Check if the last name has the right format
-        if (!this.checkName(firstname)) return "Error: invalid first name!"; // Check if the first name has the right format
-        if (!this.checkDate(birthdate)) return "Error: date of birth is not valid!"; // Check if birth date has the right format
-        if (!this.checkEmail(email)) return "Error: the email address is not valid!"; // Check if the email address has the right format
+        if (!this.checkName(name)) return "Error: invalid last name!"; // Checks if the last name has the right format
+        if (!this.checkName(firstname)) return "Error: invalid first name!"; // Checks if the first name has the right format
+        if (!this.checkDate(birthdate)) return "Error: date of birth is not valid!"; // Checks if birth date has the right format
+        if (!this.checkEmail(email)) return "Error: the email address is not valid!"; // Checks if the email address has the right format
 
-        // Check if the contact is set: if it is, the action is EDITING
+        // Checks if the contact is set: if it is, the action is EDITING
         if (this.contact == null) {
-            if (!uniqueMail) return nonUniqueMailError; // Check if the email address is already used
-            boolean addedContact = dbHelper.addContact(form); // Save data to the database
+            if (!uniqueMail) return nonUniqueMailError; // Checks if the email address is already used
+            boolean addedContact = dbHelper.insertContact(form); // Save data to the database
 
-            if (!addedContact) return "Error: contact could not be saved in database"; // Check if there was a problem to save the contact
+            if (!addedContact) return "Error: contact could not be saved in database"; // Checks if there was a problem to save the contact
             finalMessage = "Success: contact " + email + " was successfully saved in database!"; // Set the final message
         } else {
             String prevMail = this.contact.get("email"); // Email of the contact in database
             boolean changedMail = !prevMail.equals(email);
 
-            // Check if the email address was changed
+            // Checks if the email address was changed
             if (changedMail) {
-                if (!uniqueMail) return nonUniqueMailError; // Check if the changed address is already used
+                if (!uniqueMail) return nonUniqueMailError; // Checks if the changed address is already used
             }
             boolean updatedContact = dbHelper.updateContact(prevMail, form);
 
-            if (!updatedContact) return "Error: contact could not be updated"; // Check if there was a problem to update the contact
+            if (!updatedContact) return "Error: contact could not be updated"; // Checks if there was a problem to update the contact
 
             finalMessage = "Success: contact " + prevMail + " was successfully updated!"; // Set the final message
         }
@@ -223,20 +223,22 @@ public class ContactActivity extends AppCompatActivity {
     }
 
     /**
-     * Fill the fields of the form with data contained in map
-     * @param contact
+     * Fills the fields of the form with data contained in map
+     * @param contact : data to use in order to fill the fields
      */
     private void setFieldsValue(Map<String, String> contact) {
-        // Set the values
+        // Filling the EditText fields
         this.name.setText(contact.get("name"));
         this.firstname.setText(contact.get("firstname"));
         this.birthdate.setText(contact.get("birthdate"));
         this.phone.setText(contact.get("phone"));
         this.email.setText(contact.get("email"));
 
-        // Handling gender check
+        // Checking the gender
         String genderValue = contact.get("gender");
         int id; // Id of the radio button to check
+
+        // Defining the id of the radio to be checked based on the gender string
         switch (genderValue) {
             case "F":
                 id = R.id.contact_gender_f;
@@ -264,7 +266,7 @@ public class ContactActivity extends AppCompatActivity {
      * @param user : user to save
      */
     private void saveUserToDatabase(Map<String, String> user) {
-        boolean insertedData = dbHelper.addContact(user);
+        boolean insertedData = dbHelper.insertContact(user);
         String message = (insertedData) ? "Success: user saved to database!" : "Error: user could not be saved to database";
         displayMessage(message); // Displaying return massage
     }
@@ -282,6 +284,7 @@ public class ContactActivity extends AppCompatActivity {
                 String message = validateForm(form); // Validate the form
                 displayMessage(message); // Display validation message
 
+                // If the the form validation is a success, the activity is finished
                 if (message.startsWith("Success")) {
                     setResult(RESULT_OK);
                     finish();
@@ -291,7 +294,7 @@ public class ContactActivity extends AppCompatActivity {
     }
 
     /**
-     * Configuration of the delete button to delete a contact
+     * Configuration of the delete floating action button to delete a contact
      */
     private void configureDeleteButton() {
         FloatingActionButton deleteContact = findViewById(R.id.contact_delete);
